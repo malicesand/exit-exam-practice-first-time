@@ -52,21 +52,54 @@ const tasks = [
   // PROBLEM #1 /////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
   
-  let todos;
+  let todos = [];
+  todos.push('laundry');
+  todos.push('cook dinner');
+  todos.push('buy dog food')
   
   ///////////////////////////////////////////////////////////////
   // PROBLEM #2 /////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
   
-  let getTaskByLength = function(){
-    
-  };
+  let getTaskByLength = function(array, targetLength){
+
+    return array.reduce(function(acc, current) {
+          if (targetLength === 'longest') {
+            
+           if (acc.length > current.length) {
+             return acc
+           } else {
+             return current
+           }
+        }
+       if (targetLength === 'shortest') {
+         
+           if (acc.length < current.length) {
+             return acc
+           } else {
+             return current
+           }
+       }
+       
+         })
+       
+     };
   
   ///////////////////////////////////////////////////////////////
   // PROBLEM #3 /////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
   
-  let awardPrize = function(){
+  let awardPrize = function(array){
+    
+    for (var i = 0; i < array.length; i++) {
+      if(i % 2 === 0) {
+        array[i]['prizeMoney'] = 10
+      } else {
+        array[i]['prizeMoney'] = 0
+      }
+    }
+    return array
+  
     
   };
   
@@ -74,7 +107,21 @@ const tasks = [
   // PROBLEM #4 /////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
   
-  let printTaskInfo = function() {
+  let printTaskInfo = function(task, propAndInfo) {
+    return propAndInfo.forEach(function ([key, value])  { 
+      let taskArr = Object.entries(task)
+      if (typeof task['key'] === 'string') {
+        console.log(`${task['key']} (${value})`)
+      }
+      if (typeof value === 'object') {
+        for (var i = 0; i < value.length; i++) {
+          console.log(`${task['key']} (${value[i]})`)
+        
+        
+      }
+    }
+    }) 
+    
     
   };
 
@@ -83,7 +130,16 @@ const tasks = [
   // PROBLEM #5 /////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
   
-  let getTaskStatus = function(){
+  let getTaskStatus = function(array, taskName){
+    if (array.length === 0) 
+      return `no task found matching that description`
+    
+    if (array[0].task === taskName) {
+      return array[0].completed
+    }
+    else {
+      return getTaskStatus(array.slice(1), taskName)
+    }
     
   };
 
@@ -93,7 +149,10 @@ const tasks = [
   // PROBLEM #6 /////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
   
-  let createString = function(){
+  let createString = function(array){
+    return array.reduce(function(acc, curr) {
+      return acc + curr['task'].charAt(curr.priority)
+    }, '')
     
   };
 
@@ -101,6 +160,11 @@ const tasks = [
   // PROBLEM #7 /////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
   
-  let filterByTag = function(){
+  let filterByTag = function(array, tag){
+    return array.filter(function(obj) {
+      if (obj.tags.includes(tag)) {
+        return obj
+      }
+    })
     
   };
